@@ -6,7 +6,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const router = createBrowserRouter(routes, { basename: '/User-Registration' });
+  const router = createBrowserRouter(routes);
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <ToastContainer />
