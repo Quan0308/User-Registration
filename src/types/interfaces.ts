@@ -8,3 +8,19 @@ export interface ImageItemProps {
     name: string;
   };
 }
+
+export interface IAuthData {
+  email: string;
+  password: string;
+}
+
+export interface ISuccessResponse<T> {
+  status: string;
+  message: string;
+  data: T;
+}
+
+export interface IToken {
+  accessToken: string;
+  refreshToken: string;
+}

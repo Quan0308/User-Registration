@@ -9,7 +9,7 @@ interface AxiosInstance {
   headers: object;
 }
 
-const apiEndpoint = 'https://api.unsplash.com';
+const apiEndpoint = import.meta.env.VITE_REACT_WEB_API;
 
 axios.interceptors.request.use(
   config => config,
@@ -34,8 +34,7 @@ axios.interceptors.response.use(
 
 const doAxios = (method: string, action: string, data?: object, params?: object) => {
   const headers = {
-    'Access-Control-Allow-Origin': '*',
-    Authorization: `Client-ID YcTNypw20bNFUhRX-juv5ofkosZgTG7nx4s35CF3wuI`
+    'Access-Control-Allow-Origin': '*'
   };
 
   const obj: AxiosInstance = {
@@ -52,4 +51,8 @@ const doAxios = (method: string, action: string, data?: object, params?: object)
 
 export const doGet = (action: string, params?: object) => {
   return doAxios('get', action, undefined, params);
+};
+
+export const doPost = (action: string, data?: object) => {
+  return doAxios('post', action, data);
 };
