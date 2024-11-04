@@ -1,4 +1,5 @@
 import axios from 'axios';
+import https from 'https';
 
 interface AxiosInstance {
   method: string;
@@ -10,6 +11,8 @@ interface AxiosInstance {
 }
 
 const apiEndpoint = import.meta.env.VITE_REACT_WEB_API;
+
+axios.defaults.httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 axios.interceptors.request.use(
   config => config,
