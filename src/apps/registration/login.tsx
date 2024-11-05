@@ -1,5 +1,5 @@
 import LockOutlined from '@mui/icons-material/LockOutlined';
-import { Button, TextField, Link, Grid2 as Grid, Typography, Container, CssBaseline, Avatar } from '@mui/material';
+import { Button, TextField, Grid2 as Grid, Typography, Container, CssBaseline, Avatar } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { login } from '../../services/authService';
 import { toast } from 'react-toastify';
@@ -75,9 +75,32 @@ export default function SignIn() {
           </Button>
           <Grid container justifyContent="flex-start">
             <Grid>
-              <Link href="/register" variant="body2">
+              <Button
+                onClick={() => navigate('/register')}
+                variant="text"
+                color="primary"
+                style={{
+                  textTransform: 'none',
+                  textDecoration: 'underline',
+                  backgroundColor: 'transparent',
+                  border: 'none',
+                  outline: 'none',
+                  padding: 0,
+                  minWidth: 0
+                }}
+                sx={{
+                  '&:hover': {
+                    backgroundColor: 'transparent'
+                  },
+                  '&:focus': {
+                    backgroundColor: 'transparent'
+                  },
+                  '&:active': {
+                    backgroundColor: 'transparent'
+                  }
+                }}>
                 Don't have an account? Sign up
-              </Link>
+              </Button>
             </Grid>
           </Grid>
         </form>
