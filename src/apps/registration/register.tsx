@@ -68,7 +68,7 @@ export default function SignUp() {
             </Grid>
           </Grid>
           <Button type="submit" fullWidth variant="contained" color="primary" style={{ marginTop: '16px', marginBottom: '16px' }}>
-            Sign In
+            Sign Up
           </Button>
           <Grid container justifyContent="flex-start">
             <Grid>
