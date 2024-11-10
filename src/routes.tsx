@@ -1,7 +1,9 @@
 import { Navigate } from 'react-router-dom';
-import Home from './apps/registration/home';
-import LogIn from './apps/registration/login';
-import Register from './apps/registration/register';
+import Home from './apps/authentication/home';
+import LogIn from './apps/authentication/login';
+import Register from './apps/authentication/register';
+import Profile from './apps/user/profile';
+import ProtectedRoute from './apps/protected';
 export default [
   {
     path: '/',
@@ -17,6 +19,18 @@ export default [
   },
   {
     path: '/home',
-    element: <Home />
+    element: (
+      <ProtectedRoute>
+        <Home />
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: '/profile',
+    element: (
+      <ProtectedRoute>
+        <Profile />
+      </ProtectedRoute>
+    )
   }
 ];

@@ -22,5 +22,10 @@ export interface ISuccessResponse<T> {
 
 export interface IToken {
   accessToken: string;
-  refreshToken: string;
+}
+
+export interface IUser {
+  id: string;
+  email: string;
+  username: string;
 }

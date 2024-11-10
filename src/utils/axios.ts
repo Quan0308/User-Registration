@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useAuthStore } from '../stores/authStore';
 
 interface AxiosInstance {
   method: string;
@@ -26,6 +27,8 @@ axios.interceptors.response.use(
     const { status } = error.response;
     if (status === 404) {
       return Promise.reject(error);
+    } else if (status === 403) {
+      useAuthStore.getState().logOut;
     } else {
       return Promise.reject(error);
     }
@@ -33,9 +36,16 @@ axios.interceptors.response.use(
 );
 
 const doAxios = (method: string, action: string, data?: object, params?: object) => {
-  const headers = {
-    'Access-Control-Allow-Origin': '*'
-  };
+  const token = useAuthStore.getState().token?.accessToken;
+
+  const headers = token
+    ? {
+        'Access-Control-Allow-Origin': '*',
+        Authorization: `Bearer ${token}`
+      }
+    : {
+        'Access-Control-Allow-Origin': '*'
+      };
 
   const obj: AxiosInstance = {
     method: method,

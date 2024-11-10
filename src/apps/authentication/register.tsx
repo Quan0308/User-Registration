@@ -1,11 +1,11 @@
 import LockOutlined from '@mui/icons-material/LockOutlined';
 import { Button, TextField, Grid2 as Grid, Typography, Container, CssBaseline, Avatar } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import { login } from '../../services/authService';
+import { register } from '../../services/authService';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import { checkToken } from '../../utils/sessionHelper';
+import { useAuthStore } from '../../stores/authStore';
 
 const useStyles = makeStyles({
   paper: {
@@ -24,12 +24,13 @@ const useStyles = makeStyles({
   }
 });
 
-export default function SignIn() {
+export default function SignUp() {
   const classes = useStyles();
   const navigate = useNavigate();
 
+  const token = useAuthStore(state => state.token);
   useEffect(() => {
-    if (checkToken()) {
+    if (token) {
       navigate('/home');
     }
   }, []);
@@ -40,12 +41,9 @@ export default function SignIn() {
     const email = data.get('email') as string;
     const password = data.get('password') as string;
     try {
-      const res = await login({ email, password });
-      const { accessToken, refreshToken } = res.data;
-      localStorage.setItem('accessToken', accessToken);
-      localStorage.setItem('refreshToken', refreshToken);
+      const res = await register({ email, password });
       toast.success(res.message);
-      navigate('/home');
+      navigate('/login');
     } catch (error: any) {
       toast.error(error.message);
     }
@@ -59,7 +57,7 @@ export default function SignIn() {
           <LockOutlined />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign In
+          Sign up
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit} noValidate>
           <Grid container spacing={2}>
@@ -71,12 +69,12 @@ export default function SignIn() {
             </Grid>
           </Grid>
           <Button type="submit" fullWidth variant="contained" color="primary" style={{ marginTop: '16px', marginBottom: '16px' }}>
-            Sign In
+            Sign Up
           </Button>
           <Grid container justifyContent="flex-start">
             <Grid>
               <Button
-                onClick={() => navigate('/register')}
+                onClick={() => navigate('/login')}
                 variant="text"
                 color="primary"
                 style={{
@@ -98,8 +96,9 @@ export default function SignIn() {
                   '&:active': {
                     backgroundColor: 'transparent'
                   }
-                }}>
-                Don't have an account? Sign up
+                }}
+              >
+                Already have an account? Sign In
               </Button>
             </Grid>
           </Grid>
